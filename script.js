@@ -19,7 +19,7 @@ const SYSTEM_DB = {
   ]
 };
 
-// SYNCHRONIZATION TRANSACTION LAYER CONTROL
+
 function commitLocalDB() {
   localStorage.setItem('kb_users', JSON.stringify(SYSTEM_DB.users));
   localStorage.setItem('kb_requests', JSON.stringify(SYSTEM_DB.requests));
@@ -32,7 +32,7 @@ function commitLocalDB() {
 let activeUserSession = JSON.parse(localStorage.getItem('kb_activeSession')) || null;
 let imagePreviewCacheData = "";
 
-// ROUTING MATRIX STATE CONTROLLER ENGINE
+
 function navigate(targetPageID) {
   document.querySelectorAll('.page').forEach(view => view.classList.remove('active'));
   
@@ -56,8 +56,6 @@ function navigate(targetPageID) {
     navbarElement.style.display = 'flex';
     footerElement.style.display = 'block';
   }
-
-  // INTERNALS CONTEXTUAL INITIALIZATION INTERFACE
   if (targetPageID === 'services') renderServicesCatalogue();
   if (targetPageID === 'pulse') renderPulseFeed();
   if (targetPageID === 'announcements') renderAnnouncements();
@@ -66,17 +64,14 @@ function navigate(targetPageID) {
   
   updateDynamicMetrics();
   
-  // Close mobile nav menu wrapper upon tracking navigation executions
   const links = document.getElementById('nav-links');
   if (links) links.classList.remove('active');
 }
 
-// APPLICATION INITIAL WINDOW DISPATCH HOOK
 window.addEventListener('DOMContentLoaded', () => {
   setupCoreEventListeners();
   updateAuthNavigationControls();
   
-  // Detect current initialization page placement status checks
   if (activeUserSession) {
     navigate(activeUserSession.role === 'admin' ? 'admin' : 'dashboard');
   } else {
@@ -89,7 +84,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }, 600);
 });
 
-// CORE EVENT LISTENERS CENTRAL HOOK
 function setupCoreEventListeners() {
   document.getElementById('login-form')?.addEventListener('submit', handleLoginValidation);
   document.getElementById('register-form')?.addEventListener('submit', handleRegistrationValidation);
@@ -99,7 +93,6 @@ function setupCoreEventListeners() {
   document.getElementById('admin-announcement-form')?.addEventListener('submit', handleAdminNoticePublish);
 }
 
-// MANAGEMENT OF SYSTEM UTILITY NOTIFICATIONS
 function showToast(textMsg, variant = 'success') {
   const container = document.getElementById('toast-container');
   if (!container) return;
@@ -110,12 +103,10 @@ function showToast(textMsg, variant = 'success') {
   setTimeout(() => { alertBox.remove(); }, 3500);
 }
 
-// TOGGLE RESPONSIVE MOBILE BAR OVERLAYS
 function toggleMobileNav() {
   document.getElementById('nav-links')?.classList.toggle('active');
 }
 
-// APPLICATION STYLE INTERACTION RULES (DARK MODE)
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
   showToast("Interface display layout visual spectrum inverted.", "success");
@@ -127,7 +118,6 @@ function togglePasswordVisibility(targetInputID) {
   element.type = element.type === 'password' ? 'text' : 'password';
 }
 
-// PUBLIC VISIBILITY NAVIGATION MAPPING SWITCHES
 function updateAuthNavigationControls() {
   const container = document.getElementById('auth-buttons');
   if (!container) return;
@@ -143,8 +133,6 @@ function updateAuthNavigationControls() {
     `;
   }
 }
-
-// LOGOUT MANAGEMENT PROTOCOLS
 function logout() {
   localStorage.removeItem('kb_activeSession');
   activeUserSession = null;
@@ -153,7 +141,6 @@ function logout() {
   navigate('home');
 }
 
-// FILL CHOSEN DEMO VALUES SHORTCUT
 function fillDemo(typeRole) {
   if (typeRole === 'resident') {
     document.getElementById('login-email').value = "resident@kapitbaryo.com";
@@ -165,7 +152,6 @@ function fillDemo(typeRole) {
   showToast("Demo profile shortcuts structural elements mapped down.", "success");
 }
 
-// SECURITY AUTHPASS HANDLERS LAYER
 function handleLoginValidation(e) {
   e.preventDefault();
   const mailVal = document.getElementById('login-email').value.trim();
@@ -216,7 +202,6 @@ function handleRegistrationValidation(e) {
   navigate('login');
 }
 
-// SERVICES MANAGEMENT SCHEMATIC SYSTEM MAP
 const SERVICES_LEDGER = [
   { name: 'Barangay Clearance', desc: 'Required credential profile validation layout mapping framework used inside job tracking applications.', rules: 'Requires: 1 Valid Government Identification Card.', cost: '₱20', time: '15-30 Minutes Immediate Processing' },
   { name: 'Certificate of Residency', desc: 'Official validation authentication statement verification certifying your localized address structural mapping.', rules: 'Requires: Proof of tenancy statement or monthly bill address markers.', cost: '₱20', time: '10 Minutes Fulfillment Time' },
@@ -252,8 +237,6 @@ function initiateDirectDocumentRequest(docNameTitle) {
   document.getElementById('dash-req-type').value = docNameTitle;
   updateDashPriceValue();
 }
-
-// COMMUNITY PULSE INTERACTION ENGINE CONTROLLER
 function previewPulseImage(evt) {
   const read = new FileReader();
   read.onload = function() {
@@ -377,8 +360,6 @@ function appendPulseCommentary(pId) {
     showToast("Feedback comment committed safely into concern card.", "success");
   }
 }
-
-// ANNOUNCEMENTS DATA ENGINE
 function renderAnnouncements() {
   const container = document.getElementById('announcements-display-list');
   if (!container) return;
@@ -413,7 +394,6 @@ function renderAnnouncements() {
   `).join('');
 }
 
-// RESIDENT DASHBOARD TAB AND INTERACTION RULES CONTROL
 function switchDashTab(tabElementID, buttonNode) {
   document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.sidebar-links button').forEach(b => b.classList.remove('active'));
@@ -436,7 +416,6 @@ function setupResidentDashboardUI() {
   document.getElementById('user-count-pending').innerText = userDocs.filter(r => r.status === 'Pending').length;
   document.getElementById('user-count-ready').innerText = userDocs.filter(r => r.status === 'Ready for Pickup').length;
 
-  // Render recent listings inside overview box
   const noticesBox = document.getElementById('dash-recent-announcements');
   if (noticesBox) {
     noticesBox.innerHTML = SYSTEM_DB.announcements.slice(-2).reverse().map(a => `
@@ -446,7 +425,6 @@ function setupResidentDashboardUI() {
     `).join('') || "<p>No recent bulletins.</p>";
   }
 
-  // Populate dynamic records processing history datatable
   const tableBody = document.getElementById('resident-requests-table');
   if (tableBody) {
     if (userDocs.length === 0) {
@@ -464,7 +442,6 @@ function setupResidentDashboardUI() {
     }
   }
 
-  // Populate dynamic appointments listing container
   const appointmentsBox = document.getElementById('user-appointments-list');
   if (appointmentsBox) {
     const userAppts = SYSTEM_DB.appointments.filter(a => a.userEmail === activeUserSession.email);
@@ -503,7 +480,6 @@ function handleAppointmentBooking(e) {
   const dateTarget = document.getElementById('appt-date').value;
   const timeTarget = document.getElementById('appt-time').value;
 
-  // Prevent double booking checking mechanism
   const collision = SYSTEM_DB.appointments.some(a => a.date === dateTarget && a.time === timeTarget);
   if (collision) {
     showToast("The targeted operational time segment has already been fully reserved. Please pick alternative hours.", "error");
@@ -529,7 +505,6 @@ function cancelAppointmentItem(apptKey) {
   setupResidentDashboardUI();
 }
 
-// INVOICE RECEIPT METRICS GENERATOR
 function viewPrintReceiptInvoice(reqUid) {
   const fileRow = SYSTEM_DB.requests.find(r => r.id === reqUid);
   if (!fileRow) return;
@@ -550,7 +525,6 @@ function closeReceiptModal() {
   document.getElementById('receipt-modal-view').classList.remove('active');
 }
 
-// ADMIN PANEL TAB AND CORE ACTION LOGIC CONTROLLER
 function switchAdminTab(targetTabUid, elementBtn) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
   elementBtn.closest('.sidebar-links').querySelectorAll('button').forEach(b => b.classList.remove('active'));
@@ -564,7 +538,6 @@ function setupAdminDashboardUI() {
   document.getElementById('adm-stat-docs').innerText = SYSTEM_DB.requests.length;
   document.getElementById('adm-stat-concerns').innerText = SYSTEM_DB.pulses.length;
 
-  // Render core registered residents roster
   const rosterBox = document.getElementById('admin-user-roster-list');
   if (rosterBox) {
     const residents = SYSTEM_DB.users.filter(u => u.role !== 'admin');
@@ -576,7 +549,6 @@ function setupAdminDashboardUI() {
     `).join('') || "<li>No registered system profiles available.</li>";
   }
 
-  // Populate administrative processing list tables
   const requestsTbody = document.getElementById('admin-global-requests-table');
   if (requestsTbody) {
     requestsTbody.innerHTML = SYSTEM_DB.requests.map(r => `
@@ -601,7 +573,6 @@ function setupAdminDashboardUI() {
     `).join('') || `<tr><td colspan="5" class="text-center">No document entries filed.</td></tr>`;
   }
 
-  // Populate administrative public pulse management records
   const concernsTbody = document.getElementById('admin-global-concerns-table');
   if (concernsTbody) {
     concernsTbody.innerHTML = SYSTEM_DB.pulses.map(p => `
@@ -625,7 +596,6 @@ function setupAdminDashboardUI() {
     `).join('') || `<tr><td colspan="6" class="text-center">No reported community public entries recorded.</td></tr>`;
   }
 
-  // Render administrative bulletin notices lists
   const noticesControlBox = document.getElementById('admin-notices-control-list');
   if (noticesControlBox) {
     noticesControlBox.innerHTML = SYSTEM_DB.announcements.map(a => `
@@ -689,12 +659,10 @@ function adminRevokeNoticeBulletin(annId) {
   setupAdminDashboardUI();
 }
 
-// SIMULATED JAVASCRIPT ANALYTICS GENERATION BAR ENGINE
 function generateVisualAnalyticsBars() {
   const chartWrapper = document.getElementById('admin-chart-area');
   if (!chartWrapper) return;
 
-  // Process item categorical calculations
   const mappingCounters = {};
   SYSTEM_DB.requests.forEach(r => {
     mappingCounters[r.type] = (mappingCounters[r.type] || 0) + 1;
@@ -718,7 +686,6 @@ function generateVisualAnalyticsBars() {
   }).join('') || `<p style="font-size:0.85rem; color:var(--text-light); text-align:center;">Insufficient data inside application vectors to map trend lines.</p>`;
 }
 
-// PERFORMANCE COUNTER AND PUBLIC STATS AUTOMATED CALCULATIONS LAYER
 function updateDynamicMetrics() {
   const resLabel = document.getElementById('stat-residents');
   const docLabel = document.getElementById('stat-docs');
