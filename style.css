@@ -140,13 +140,10 @@ footer { padding: 2rem; text-align: center; font-size: 0.88rem; color: var(--tex
   .no-print { display: none !important; }
 }
 @media (max-width: 768px) {
-    /* 1. Reset Global Container Padding */
     body {
         padding: 10px;
         font-size: 14px;
     }
-
-    /* 2. Transform Navigation Bar to a Vertical Stack or Scrollable Menu */
     nav, .nav-container {
         flex-direction: column;
         gap: 15px;
@@ -168,11 +165,10 @@ footer { padding: 2rem; text-align: center; font-size: 0.88rem; color: var(--tex
     nav ul li a {
         display: block;
         padding: 10px;
-        background: rgba(255, 255, 255, 0.05); /* Slight glass effect for mobile taps */
+        background: rgba(255, 255, 255, 0.05);
         border-radius: 8px;
     }
 
-    /* 3. Handle Auth Action Buttons Stack */
     .auth-buttons {
         width: 100%;
         display: flex;
@@ -184,13 +180,11 @@ footer { padding: 2rem; text-align: center; font-size: 0.88rem; color: var(--tex
         width: 100%;
     }
 
-    /* 4. Force Grid Layouts (Features, Cards) into a Single Column */
     .platform-features, .grid-container, .dashboard-stats {
         grid-template-columns: 1fr !important; 
         gap: 15px !important;
     }
 
-    /* 5. Optimize Forms for Mobile Inputs */
     form, .modal-content {
         width: 95% !important;
         padding: 15px;
@@ -198,11 +192,10 @@ footer { padding: 2rem; text-align: center; font-size: 0.88rem; color: var(--tex
     }
 
     input, select, textarea {
-        font-size: 16px !important; /* Prevents iOS/Android Safari from forcing an annoying auto-zoom */
-        padding: 12px !important;   /* Larger hit target for thumbs */
+        font-size: 16px !important;
+        padding: 12px !important; 
     }
 
-    /* 6. Table Layout Fix (Converts horizontal tables into scrollable blocks) */
     .table-container {
         display: block;
         width: 100%;
