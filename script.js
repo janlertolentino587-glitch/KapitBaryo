@@ -1,6 +1,3 @@
-/* KAPITBARYO CORE ARCHITECTURE ENGINE LOGIC SYSTEM */
-
-// SYSTEM DATABASE INITIALIZATION LEDGER MAPPING
 const SYSTEM_DB = {
   users: JSON.parse(localStorage.getItem('kb_users')) || [
     { email: 'resident@kapitbaryo.com', password: '123456', name: 'Juan Dela Cruz', phone: '09171234567', dob: '1992-06-15', address: 'Blk 4 Lot 2, Phase 1, Barangay Hall District', role: 'resident' },
