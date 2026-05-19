@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KapitBaryo - Online Barangay Service Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="loader">
+    <div class="spinner"></div>
+    <p style="margin-top: 15px; font-weight: 600; color: #0056b3;">Loading KapitBaryo...</p>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <div id="app-wrapper">
+    
+    <nav class="glass" id="public-nav">
+      <div class="logo">🤝 KapitBaryo</div>
+      <button class="nav-toggle" onclick="toggleMobileNav()">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#" onclick="navigate('home')">Home</a></li>
+        <li><a href="#" onclick="navigate('about')">About</a></li>
+        <li><a href="#" onclick="navigate('services')">Services</a></li>
+        <li><a href="#" onclick="navigate('pulse')">Community Pulse</a></li>
+        <li><a href="#" onclick="navigate('announcements')">Announcements</a></li>
+        <li><a href="#" onclick="navigate('contact')">Contact</a></li>
+        <li><button class="btn btn-outline" onclick="toggleDarkMode()">🌓</button></li>
+        <li id="auth-buttons">
+          <button class="btn btn-outline" onclick="navigate('login')">Login</button>
+          <button class="btn btn-primary" onclick="navigate('register')">Register</button>
+        </li>
+      </ul>
+    </nav>
+
+    <main id="main-view">
+      
+      <section id="page-home" class="page active">
+        <div class="hero">
+          <h1>Modernizing Barangay Services Through Transparency, Accessibility, and Community Participation.</h1>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="navigate('services')">Request Document</button>
+            <button class="btn btn-secondary" onclick="navigate('pulse')">Report Concern</button>
+          </div>
+        </div>
+
+        <div class="container">
+          <h2 class="section-title">Platform Features</h2>
+          <div class="grid grid-3">
+            <div class="card glass"><h3>📄 Online Document Requests</h3><p>Avoid lines. Request clearances, certificates of residency, and tracking options digitally.</p></div>
+            <div class="card glass"><h3>📅 Appointment Scheduling</h3><p>Reserve slots to pick up hard copies directly at your barangay local desk.</p></div>
+            <div class="card glass"><h3>📊 Community Pulse</h3><p>Report public hazards, infrastructure issues, or waste issues and review tracking logs.</p></div>
+            <div class="card glass"><h3>📉 Transparency Dashboard</h3><p>Check public reports metrics, total numbers of completions, and ongoing community metrics.</p></div>
+            <div class="card glass"><h3>📢 Announcements</h3><p>Get up to date alerts directly from your local administrators.</p></div>
+            <div class="card glass"><h3>⏱️ Real-Time Tracking</h3><p>Track steps through processing directly transparently inside your profile layout.</p></div>
+          </div>
+        </div>
+
+        <div class="container glass" style="margin-top: 4rem; padding: 3rem 1rem;">
+          <h2 class="section-title">Barangay Performance Counter</h2>
+          <div class="grid grid-4 text-center" id="counter-stats">
+            <div><h3 class="stat-num" id="stat-residents">0</h3><p>Total Residents Registered</p></div>
+            <div><h3 class="stat-num" id="stat-docs">0</h3><p>Documents Handled</p></div>
+            <div><h3 class="stat-num" id="stat-resolved">0</h3><p>Resolved Reports</p></div>
+            <div><h3 class="stat-num" id="stat-active">0</h3><p>Active Notices</p></div>
+          </div>
+        </div>
+
+        <div class="container">
+          <h2 class="section-title">Testimonials</h2>
+          <div class="grid grid-2">
+            <div class="card glass"><blockquote>"Requesting an indigency form used to waste half my workday. Thanks to KapitBaryo, I did it online from my phone instantly!"</blockquote><cite>— Maria Santos, Resident</cite></div>
+            <div class="card glass"><blockquote>"The real time status tracking saves our community from guessing when to walk over to the city office."</blockquote><cite>— Juan Dela Cruz, Business Owner</cite></div>
+          </div>
+        </div>
+
+        <div class="container">
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <div class="card glass">
+            <h4>What is the cost for document requests?</h4>
+            <p>Per the standard pricing model structure, request documents are uniform at ₱20 per transaction, except indigency certification waivers which are completely free.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-about" class="page">
+        <div class="container">
+          <div class="card glass text-center" style="padding: 4rem 2rem; margin-bottom: 3rem;">
+            <h1>About KapitBaryo</h1>
+            <p style="font-size: 1.2rem; margin-top: 1rem; color: var(--text-light);">A Community-Centered Online Barangay Service Platform</p>
+          </div>
+          <div class="grid grid-2">
+            <div class="card glass">
+              <h3>Our Mission</h3>
+              <p>Modernize local services by offering direct online interfaces for handling processing requirements, improving transaction workflows, lowering crowd sizes inside offices, and structuring public transparency.</p>
+            </div>
+            <div class="card glass">
+              <h3>Our Vision</h3>
+              <p>To establish standard government technology framework ecosystems across barangays globally, promoting immediate updates, accountability, and robust digital integration.</p>
+            </div>
+          </div>
+          <div class="card glass" style="margin-top:2rem;">
+            <h3>Digital Transformation Transformation Framework Goals</h3>
+            <p>1. Transition manual, traditional tracking protocols over to automated digital ledger solutions safely stored via web clients.</p>
+            <p>2. Give residents a voice directly via public-facing concern registers.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-services" class="page">
+        <div class="container">
+          <h1 class="section-title">Available Official Documents</h1>
+          <div class="grid grid-3" id="services-grid-list">
+            </div>
+        </div>
+      </section>
+
+      <section id="page-pulse" class="page">
+        <div class="container">
+          <h1 class="section-title">Community Pulse Feed</h1>
+          <div class="grid" style="grid-template-columns: 1fr 2fr; gap: 2rem;">
+            <div class="card glass" style="height: fit-content; position: sticky; top: 100px;">
+              <h3>Report a Public Issue</h3>
+              <form id="pulse-submission-form">
+                <div class="form-group">
+                  <label>Select Category</label>
+                  <select id="pulse-category" required>
+                    <option value="Flooding">Flooding</option>
+                    <option value="Garbage">Garbage</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Streetlight">Streetlight</option>
+                    <option value="Road Damage">Road Damage</option>
+                    <option value="Water Interruption">Water Interruption</option>
+                    <option value="Noise Complaint">Noise Complaint</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Issue Description</label>
+                  <textarea id="pulse-desc" rows="4" placeholder="Describe the concern clearly..." required></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Upload Image Reference</label>
+                  <input type="file" id="pulse-file" accept="image/*" onchange="previewPulseImage(event)">
+                  <img id="pulse-img-preview" style="max-width: 100%; border-radius: 8px; margin-top: 10px; display: none;">
+                </div>
+                <button type="submit" class="btn btn-secondary w-100">Submit Concern</button>
+              </form>
+            </div>
+            <div>
+              <div class="card glass" style="margin-bottom: 1rem; display: flex; gap: 10px;">
+                <input type="text" id="pulse-search" placeholder="Search reports..." oninput="renderPulseFeed()" style="flex: 1;">
+                <select id="pulse-filter" onchange="renderPulseFeed()">
+                  <option value="ALL">All Categories</option>
+                  <option value="Flooding">Flooding</option>
+                  <option value="Garbage">Garbage</option>
+                  <option value="Crime">Crime</option>
+                  <option value="Streetlight">Streetlight</option>
+                  <option value="Road Damage">Road Damage</option>
+                </select>
+              </div>
+              <div id="pulse-container-feed">
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-announcements" class="page">
+        <div class="container">
+          <h1 class="section-title">Barangay Official Notice Board</h1>
+          <div class="card glass" style="margin-bottom: 2rem; display:flex; gap:10px;">
+            <input type="text" id="announcement-search" placeholder="Search notices..." oninput="renderAnnouncements()" style="flex:1;">
+            <select id="announcement-filter" onchange="renderAnnouncements()">
+              <option value="ALL">All Types</option>
+              <option value="Emergency Alert">Emergency Alerts</option>
+              <option value="Barangay Event">Barangay Events</option>
+              <option value="Public Notice">Public Notices</option>
+            </select>
+          </div>
+          <div class="grid grid-2" id="announcements-display-list">
+            </div>
+        </div>
+      </section>
+
+      <section id="page-contact" class="page">
+        <div class="container">
+          <h1 class="section-title">Get In Touch</h1>
+          <div class="grid grid-2">
+            <div class="card glass">
+              <h3>Contact Form</h3>
+              <form onsubmit="handleContactSubmit(event)">
+                <div class="form-group"><label>Full Name</label><input type="text" required></div>
+                <div class="form-group"><label>Email Address</label><input type="email" required></div>
+                <div class="form-group"><label>Message</label><textarea rows="4" required></textarea></div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+              </form>
+            </div>
+            <div class="card glass">
+              <h3>Barangay Operations Office</h3>
+              <p style="margin: 0.5rem 0;">📍 742 Community Hub Road, Metro Manila, Philippines</p>
+              <p style="margin: 0.5rem 0;">📞 Emergency Hotline: +63 (2) 8911-9999</p>
+              <p style="margin: 0.5rem 0;">📧 Email support: support@kapitbaryo.com</p>
+              <div class="map-placeholder" style="margin-top:1.5rem; height:200px; background: rgba(0,0,0,0.1); border-radius:12px; display:flex; align-items:center; justify-content:center; border: 2px dashed var(--primary);">
+                <p style="font-weight: 500; color: var(--primary);">📍 Interactive Map Location Placeholder</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-login" class="page">
+        <div class="auth-container">
+          <div class="card glass auth-card">
+            <h2 class="text-center" style="color: var(--primary);">Account Login</h2>
+            <form id="login-form">
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="login-email" placeholder="resident@kapitbaryo.com" required>
+              </div>
+              <div class="form-group">
+                <label>Secure Password</label>
+                <div style="position:relative;">
+                  <input type="password" id="login-password" placeholder="••••••••" style="width:100%;" required>
+                  <span onclick="togglePasswordVisibility('login-password')" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); cursor:pointer;">👁️</span>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem; font-size:0.85rem;">
+                <label><input type="checkbox"> Remember Me</label>
+                <a href="#" onclick="showToast('Password reset link sent directly via email simulations.', 'success')">Forgot Password?</a>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Sign In</button>
+            </form>
+            <hr style="margin:1.5rem 0; border: 0; border-top: 1px solid var(--glass-border);">
+            <div style="font-size:0.9rem;" class="text-center">
+              <p>Credentials Demo Shortcuts:</p>
+              <button class="btn btn-outline" style="padding: 2px 8px; font-size:0.75rem;" onclick="fillDemo('resident')">Resident Demo</button>
+              <button class="btn btn-outline" style="padding: 2px 8px; font-size:0.75rem;" onclick="fillDemo('admin')">Admin Demo</button>
+            </div>
+            <p class="text-center" style="margin-top:1.5rem; font-size:0.9rem;">New Resident? <a href="#" onclick="navigate('register')" style="color:var(--primary); font-weight:600;">Create account here</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-register" class="page">
+        <div class="auth-container">
+          <div class="card glass auth-card" style="max-width: 550px;">
+            <h2 class="text-center" style="color: var(--primary);">Resident Registration</h2>
+            <form id="register-form">
+              <div class="grid grid-2">
+                <div class="form-group"><label>Full Legal Name</label><input type="text" id="reg-name" required></div>
+                <div class="form-group"><label>Email Address</label><input type="email" id="reg-email" required></div>
+                <div class="form-group"><label>Phone Number</label><input type="tel" id="reg-phone" required></div>
+                <div class="form-group"><label>Date of Birth</label><input type="date" id="reg-dob" required></div>
+              </div>
+              <div class="form-group"><label>Home Address Details</label><input type="text" id="reg-address" required></div>
+              <div class="grid grid-2">
+                <div class="form-group"><label>Create Password</label><input type="password" id="reg-password" required></div>
+                <div class="form-group"><label>Confirm Password</label><input type="password" id="reg-confirm" required></div>
+              </div>
+              <button type="submit" class="btn btn-secondary w-100" style="margin-top:1rem;">Complete Registration</button>
+            </form>
+            <p class="text-center" style="margin-top:1.5rem; font-size:0.9rem;">Existing Resident Account? <a href="#" onclick="navigate('login')" style="color:var(--primary); font-weight:600;">Login Here</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-dashboard" class="page">
+        <div class="dashboard-wrapper">
+          <aside class="sidebar glass">
+            <h3>Resident Menu</h3>
+            <div class="sidebar-user-tag">
+              <p>Logged in as:</p>
+              <strong id="dash-user-display">Resident Name</strong>
+            </div>
+            <ul class="sidebar-links">
+              <li><button class="active" onclick="switchDashTab('dash-overview', this)">📊 Dashboard Overview</button></li>
+              <li><button onclick="switchDashTab('dash-request', this)">📝 Request Document</button></li>
+              <li><button onclick="switchDashTab('dash-myrequests', this)">🗂️ My Requests Tracker</button></li>
+              <li><button onclick="switchDashTab('dash-appointments', this)">📅 Appointment System</button></li>
+              <li><button onclick="logout()">🚪 Sign Out</button></li>
+            </ul>
+          </aside>
+          
+          <div class="dashboard-content">
+            <div id="dash-overview" class="dash-tab active">
+              <h2>Overview Dashboard</h2>
+              <div class="grid grid-3" style="margin: 1.5rem 0;">
+                <div class="card glass"><h4>Total Requests Formed</h4><h2 id="user-count-total">0</h2></div>
+                <div class="card glass"><h4>Pending Processing</h4><h2 id="user-count-pending">0</h2></div>
+                <div class="card glass"><h4>Ready for Pickup Counter</h4><h2 id="user-count-ready">0</h2></div>
+              </div>
+              <div class="card glass">
+                <h3>Latest Notice Alerts</h3>
+                <div id="dash-recent-announcements"></div>
+              </div>
+            </div>
+
+            <div id="dash-request" class="dash-tab">
+              <h2>Submit Document Application</h2>
+              <form id="dash-doc-form" class="card glass" style="margin-top:1.5rem;">
+                <div class="form-group">
+                  <label>Document Needed</label>
+                  <select id="dash-req-type" onchange="updateDashPriceValue()" required>
+                    <option value="Barangay Clearance">Barangay Clearance (₱20)</option>
+                    <option value="Certificate of Residency">Certificate of Residency (₱20)</option>
+                    <option value="Indigency Certificate">Indigency Certificate (Free)</option>
+                    <option value="Business Permit Clearance">Business Permit Clearance (₱20)</option>
+                    <option value="Cedula">Cedula (₱20)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Purpose statement</label>
+                  <input type="text" id="dash-req-purpose" placeholder="e.g. Employment requirement" required>
+                </div>
+                <div class="form-group">
+                  <label>Upload Supporting ID Requirements</label>
+                  <input type="file" required>
+                </div>
+                <p><strong>Total Processing Cost Assessment:</strong> <span id="dash-price-tag">₱20</span></p>
+                <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Generate Queue Tracker Code</button>
+              </form>
+            </div>
+
+            <div id="dash-myrequests" class="dash-tab">
+              <h2>My Request Processing History</h2>
+              <div class="table-container card glass" style="margin-top:1.5rem;">
+                <table>
+                  <thead>
+                    <tr><th>Queue ID</th><th>Document Classification</th><th>Purpose</th><th>Status</th><th>Actions</th></tr>
+                  </thead>
+                  <tbody id="resident-requests-table">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="dash-appointments" class="dash-tab">
+              <h2>Schedule Smart Pickup Slot</h2>
+              <div class="grid grid-2" style="margin-top:1.5rem;">
+                <form id="dash-appointment-form" class="card glass">
+                  <div class="form-group">
+                    <label>Select Target Date</label>
+                    <input type="date" id="appt-date" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Available Target Hours</label>
+                    <select id="appt-time" required>
+                      <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                      <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                      <option value="01:00 PM - 02:00 PM">01:00 PM - 02:00 PM</option>
+                      <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+                      <option value="03:00 PM - 04:00 PM">03:00 PM - 04:00 PM</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-secondary">Lock Appointment Slot</button>
+                </form>
+                <div class="card glass">
+                  <h3>Your Scheduled Slots</h3>
+                  <ul id="user-appointments-list" style="margin-top:1rem; display:flex; flex-direction:column; gap:10px;"></ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section id="page-admin" class="page">
+        <div class="dashboard-wrapper">
+          <aside class="sidebar glass">
+            <h3>Admin Panel</h3>
+            <div class="sidebar-user-tag">
+              <p>Level: <strong>System Controller</strong></p>
+            </div>
+            <ul class="sidebar-links">
+              <li><button class="active" onclick="switchAdminTab('admin-overview', this)">📊 System Overview</button></li>
+              <li><button onclick="switchAdminTab('admin-requests', this)">📁 Manage Applications</button></li>
+              <li><button onclick="switchAdminTab('admin-concerns', this)">🛠️ Public Reports Feed</button></li>
+              <li><button onclick="switchAdminTab('admin-notices', this)">📢 Dispatch Announcements</button></li>
+              <li><button onclick="logout()">🚪 Sign Out</button></li>
+            </ul>
+          </aside>
+
+          <div class="dashboard-content">
+            <div id="admin-overview" class="admin-tab active">
+              <h2>Analytics and Real-Time Infrastructure Status</h2>
+              <div class="grid grid-4" style="margin: 1.5rem 0;">
+                <div class="card glass"><h4>Total Users Listed</h4><h2 id="adm-stat-users">0</h2></div>
+                <div class="card glass"><h4>Pending Invoices/Docs</h4><h2 id="adm-stat-docs">0</h2></div>
+                <div class="card glass"><h4>Active Concerns Submitted</h4><h2 id="adm-stat-concerns">0</h2></div>
+                <div class="card glass"><h4>Fulfillment Efficiency Rate</h4><h2>94.2%</h2></div>
+              </div>
+              <div class="grid grid-2">
+                <div class="card glass">
+                  <h3>Live Metrics Visualization Tracker</h3>
+                  <p style="margin-bottom:10px; font-size:0.85rem; color:var(--text-light);">Document volume application metrics metrics trends breakdown</p>
+                  <div id="admin-chart-area"></div>
+                </div>
+                <div class="card glass">
+                  <h3>Registered Platform User Core Roster</h3>
+                  <ul id="admin-user-roster-list" style="margin-top:1rem; display:flex; flex-direction:column; gap:5px; max-height:220px; overflow-y:auto;"></ul>
+                </div>
+              </div>
+            </div>
+
+            <div id="admin-requests" class="admin-tab">
+              <h2>Process Registry Applications</h2>
+              <div class="table-container card glass" style="margin-top:1.5rem;">
+                <table>
+                  <thead>
+                    <tr><th>Queue Key</th><th>Applicant</th><th>Document Requested</th><th>Current Status Tracking</th><th>Operation Toggle Actions</th></tr>
+                  </thead>
+                  <tbody id="admin-global-requests-table">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="admin-concerns" class="admin-tab">
+              <h2>Resolve Public Pulse Reports Register</h2>
+              <div class="table-container card glass" style="margin-top:1.5rem;">
+                <table>
+                  <thead>
+                    <tr><th>Report Key</th><th>Reporter</th><th>Category Label</th><th>Description Summary</th><th>Status Badge</th><th>Action Options</th></tr>
+                  </thead>
+                  <tbody id="admin-global-concerns-table">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="admin-notices" class="admin-tab">
+              <h2>Broadcast Official Notices Block</h2>
+              <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <form id="admin-announcement-form" class="card glass">
+                  <div class="form-group"><label>Notice Classification Header</label><input type="text" id="ann-title" required></div>
+                  <div class="form-group">
+                    <label>Category Label</label>
+                    <select id="ann-type" required>
+                      <option value="Emergency Alert">Emergency Alert</option>
+                      <option value="Barangay Event">Barangay Event</option>
+                      <option value="Public Notice">Public Notice</option>
+                    </select>
+                  </div>
+                  <div class="form-group"><label>Body Text Content Details</label><textarea id="ann-content" rows="4" required></textarea></div>
+                  <button type="submit" class="btn btn-primary">Publish to Notice Board</button>
+                </form>
+                <div class="card glass">
+                  <h3>Active Dispatched Bulletins</h3>
+                  <ul id="admin-notices-control-list" style="margin-top:1rem; display:flex; flex-direction:column; gap:10px; max-height:350px; overflow-y:auto;"></ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="modal-overlay" id="receipt-modal-view">
+      <div class="modal glass receipt-paper" id="receipt-print-zone">
+        <span class="close-btn" onclick="closeReceiptModal()">×</span>
+        <h3 class="text-center" style="color:var(--primary);">KapitBaryo Official Transaction Invoice</h3>
+        <p class="text-center" style="font-size:0.8rem; color:var(--text-light); margin-bottom:1.5rem;">Government Technical SaaS Validation Processing Module</p>
+        <div class="receipt-row"><span>Receipt Queue Reference:</span><strong id="rcpt-id"></strong></div>
+        <div class="receipt-row"><span>Citizen Full Name:</span><span id="rcpt-name"></span></div>
+        <div class="receipt-row"><span>Document Application:</span><span id="rcpt-type"></span></div>
+        <div class="receipt-row"><span>Purpose:</span><span id="rcpt-purpose"></span></div>
+        <div class="receipt-row"><span>Fulfillment Status Check:</span><span id="rcpt-status" class="badge"></span></div>
+        <hr style="margin:1rem 0; border:0; border-top:1px dashed #aaa;">
+        <div style="text-align:center; margin-top:1rem;">
+          <div style="background:#eee; padding:10px; display:inline-block; border-radius:8px; margin-bottom:10px;">
+            <p style="font-size:0.75rem; color:#333; letter-spacing: 2px; font-family: monospace;">[ QR CODE SCAN CONFIRMATION KEY ]</p>
+          </div>
+          <p style="font-size:0.8rem; color:var(--text-light);">Show transaction page confirmation receipt directly upon arrival during scheduled pickup time intervals.</p>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:1.5rem;" class="no-print">
+          <button class="btn btn-primary flex-1" onclick="window.print()">🖨️ Execute Print File</button>
+          <button class="btn btn-outline" onclick="closeReceiptModal()">Dismiss</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="glass" id="landing-footer">
+      <p>© 2026 KapitBaryo Platform Inc. — Managed under Transparency Framework Protocols.</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
