@@ -139,3 +139,74 @@ footer { padding: 2rem; text-align: center; font-size: 0.88rem; color: var(--tex
   #receipt-print-zone { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; border: none; background: white; color: black; }
   .no-print { display: none !important; }
 }
+@media (max-width: 768px) {
+    /* 1. Reset Global Container Padding */
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* 2. Transform Navigation Bar to a Vertical Stack or Scrollable Menu */
+    nav, .nav-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        padding: 0;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.05); /* Slight glass effect for mobile taps */
+        border-radius: 8px;
+    }
+
+    /* 3. Handle Auth Action Buttons Stack */
+    .auth-buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .auth-buttons button {
+        width: 100%;
+    }
+
+    /* 4. Force Grid Layouts (Features, Cards) into a Single Column */
+    .platform-features, .grid-container, .dashboard-stats {
+        grid-template-columns: 1fr !important; 
+        gap: 15px !important;
+    }
+
+    /* 5. Optimize Forms for Mobile Inputs */
+    form, .modal-content {
+        width: 95% !important;
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    input, select, textarea {
+        font-size: 16px !important; /* Prevents iOS/Android Safari from forcing an annoying auto-zoom */
+        padding: 12px !important;   /* Larger hit target for thumbs */
+    }
+
+    /* 6. Table Layout Fix (Converts horizontal tables into scrollable blocks) */
+    .table-container {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
