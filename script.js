@@ -19,7 +19,6 @@ const SYSTEM_DB = {
   ]
 };
 
-
 function commitLocalDB() {
   localStorage.setItem('kb_users', JSON.stringify(SYSTEM_DB.users));
   localStorage.setItem('kb_requests', JSON.stringify(SYSTEM_DB.requests));
@@ -31,7 +30,6 @@ function commitLocalDB() {
 
 let activeUserSession = JSON.parse(localStorage.getItem('kb_activeSession')) || null;
 let imagePreviewCacheData = "";
-
 
 function navigate(targetPageID) {
   document.querySelectorAll('.page').forEach(view => view.classList.remove('active'));
@@ -56,6 +54,7 @@ function navigate(targetPageID) {
     navbarElement.style.display = 'flex';
     footerElement.style.display = 'block';
   }
+  
   if (targetPageID === 'services') renderServicesCatalogue();
   if (targetPageID === 'pulse') renderPulseFeed();
   if (targetPageID === 'announcements') renderAnnouncements();
@@ -133,6 +132,7 @@ function updateAuthNavigationControls() {
     `;
   }
 }
+
 function logout() {
   localStorage.removeItem('kb_activeSession');
   activeUserSession = null;
@@ -202,12 +202,13 @@ function handleRegistrationValidation(e) {
   navigate('login');
 }
 
+// Pricing removed here
 const SERVICES_LEDGER = [
-  { name: 'Barangay Clearance', desc: 'Required credential profile validation layout mapping framework used inside job tracking applications.', rules: 'Requires: 1 Valid Government Identification Card.', cost: '₱20', time: '15-30 Minutes Immediate Processing' },
-  { name: 'Certificate of Residency', desc: 'Official validation authentication statement verification certifying your localized address structural mapping.', rules: 'Requires: Proof of tenancy statement or monthly bill address markers.', cost: '₱20', time: '10 Minutes Fulfillment Time' },
+  { name: 'Barangay Clearance', desc: 'Required credential profile validation layout mapping framework used inside job tracking applications.', rules: 'Requires: 1 Valid Government Identification Card.', cost: 'Free', time: '15-30 Minutes Immediate Processing' },
+  { name: 'Certificate of Residency', desc: 'Official validation authentication statement verification certifying your localized address structural mapping.', rules: 'Requires: Proof of tenancy statement or monthly bill address markers.', cost: 'Free', time: '10 Minutes Fulfillment Time' },
   { name: 'Indigency Certificate', desc: 'Waiver confirmation framework providing subsidized social assistance pathways.', rules: 'Requires: Referral confirmation layout form from community leader.', cost: 'Free', time: 'Immediate Issuance' },
-  { name: 'Business Permit Clearance', desc: 'Sanction tracking permissions operational matrix processing clearance maps.', rules: 'Requires: DTI Ledger Certification, Local location blueprint overview data.', cost: '₱20', time: '1 Business Processing Day' },
-  { name: 'Cedula', desc: 'Community Tax Certificate operational validation token ledger configuration document.', rules: 'Requires: Computed declarations proof parameters or signature logs.', cost: '₱20', time: '5 Minute Counter Fulfillment' }
+  { name: 'Business Permit Clearance', desc: 'Sanction tracking permissions operational matrix processing clearance maps.', rules: 'Requires: DTI Ledger Certification, Local location blueprint overview data.', cost: 'Free', time: '1 Business Processing Day' },
+  { name: 'Cedula', desc: 'Community Tax Certificate operational validation token ledger configuration document.', rules: 'Requires: Computed declarations proof parameters or signature logs.', cost: 'Free', time: '5 Minute Counter Fulfillment' }
 ];
 
 function renderServicesCatalogue() {
@@ -237,6 +238,7 @@ function initiateDirectDocumentRequest(docNameTitle) {
   document.getElementById('dash-req-type').value = docNameTitle;
   updateDashPriceValue();
 }
+
 function previewPulseImage(evt) {
   const read = new FileReader();
   read.onload = function() {
@@ -360,6 +362,7 @@ function appendPulseCommentary(pId) {
     showToast("Feedback comment committed safely into concern card.", "success");
   }
 }
+
 function renderAnnouncements() {
   const container = document.getElementById('announcements-display-list');
   if (!container) return;
@@ -402,9 +405,9 @@ function switchDashTab(tabElementID, buttonNode) {
   buttonNode?.classList.add('active');
 }
 
+// Pricing removed here
 function updateDashPriceValue() {
-  const selection = document.getElementById('dash-req-type').value;
-  document.getElementById('dash-price-tag').innerText = selection === 'Indigency Certificate' ? 'Free' : '₱20';
+  document.getElementById('dash-price-tag').innerText = 'Free';
 }
 
 function setupResidentDashboardUI() {
@@ -659,6 +662,7 @@ function adminRevokeNoticeBulletin(annId) {
   setupAdminDashboardUI();
 }
 
+// Code completion added here
 function generateVisualAnalyticsBars() {
   const chartWrapper = document.getElementById('admin-chart-area');
   if (!chartWrapper) return;
