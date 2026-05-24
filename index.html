@@ -80,7 +80,7 @@
           <h2 class="section-title">Frequently Asked Questions</h2>
           <div class="card glass">
             <h4>What is the cost for document requests?</h4>
-            <p>Per the standard pricing model structure, request documents are uniform at ₱20 per transaction, except indigency certification waivers which are completely free.</p>
+            <p>All document requests and processing via the KapitBaryo platform are completely free of charge to ensure accessible services for all residents.</p>
           </div>
         </div>
       </section>
@@ -102,7 +102,7 @@
             </div>
           </div>
           <div class="card glass" style="margin-top:2rem;">
-            <h3>Digital Transformation Transformation Framework Goals</h3>
+            <h3>Digital Transformation Framework Goals</h3>
             <p>1. Transition manual, traditional tracking protocols over to automated digital ledger solutions safely stored via web clients.</p>
             <p>2. Give residents a voice directly via public-facing concern registers.</p>
           </div>
@@ -302,12 +302,12 @@
               <form id="dash-doc-form" class="card glass" style="margin-top:1.5rem;">
                 <div class="form-group">
                   <label>Document Needed</label>
-                  <select id="dash-req-type" onchange="updateDashPriceValue()" required>
-                    <option value="Barangay Clearance">Barangay Clearance (₱20)</option>
-                    <option value="Certificate of Residency">Certificate of Residency (₱20)</option>
-                    <option value="Indigency Certificate">Indigency Certificate (Free)</option>
-                    <option value="Business Permit Clearance">Business Permit Clearance (₱20)</option>
-                    <option value="Cedula">Cedula (₱20)</option>
+                  <select id="dash-req-type" required>
+                    <option value="Barangay Clearance">Barangay Clearance</option>
+                    <option value="Certificate of Residency">Certificate of Residency</option>
+                    <option value="Indigency Certificate">Indigency Certificate</option>
+                    <option value="Business Permit Clearance">Business Permit Clearance</option>
+                    <option value="Cedula">Cedula</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -318,7 +318,7 @@
                   <label>Upload Supporting ID Requirements</label>
                   <input type="file" required>
                 </div>
-                <p><strong>Total Processing Cost Assessment:</strong> <span id="dash-price-tag">₱20</span></p>
+                <p><strong>Total Processing Cost Assessment:</strong> <span id="dash-price-tag" style="color: var(--secondary); font-weight: bold;">Free</span></p>
                 <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Generate Queue Tracker Code</button>
               </form>
             </div>
